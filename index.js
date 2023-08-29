@@ -3,6 +3,9 @@ let dishImage = document.querySelector("#dish-image");
 let dishName = document.querySelector("#dish-name");
 let dishDescription = document.querySelector("#dish-description");
 let dishPrice = document.querySelector("#dish-price");
+const cartForm = document.querySelector("#cart-form");
+//const cartNumSpan = document.querySelector("#number-in-cart")
+
 //fetch menu itmes
 fetch("http://localhost:3000/menu")
 .then(res => res.json())
@@ -20,9 +23,19 @@ fetch("http://localhost:3000/menu")
     })
   }),
   //the user should be able to add the menu items to their cart.
-  addEventListener("submit", (eTwo) => {
-    eTwo.preventDefault();
-    console.log("Hello!")
+  cartForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const cartNumSpan = document.querySelector("#number-in-cart")
+    const currNum = cartNumSpan.textContent
+    //console.log(currNum)
+    //console.log(typeof currNum)
+    console.log(e.target[0].value)
+    const numToAdd = e.target[0].value
+    //console.log(numToAdd)
+    //console.log(typeof numToAdd)
+    const newTotal = parseInt(currNum) + parseInt(numToAdd)
+    cartNumSpan.textContent = newTotal
+    
   }),
   //when the page loads display the first menu item.
   renderMenuItem(menu[0])
